@@ -1,45 +1,62 @@
 #include <iostream>
+#include <iomanip>
+
 using namespace std;
 
-int main(){
-char choice;
+int main() {
+char option;
 do{
-string months[12] = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-double yrlyrev = 0;
-int numMonths,stocks, sold, remaining;
-double price, total_rev;
+    double sales[5][4] = {0};
+    int sp, prod;
+    double amount;
+    char choice;
 
-cout << "How many months would you like to calculate counting from January? ";
-cin >> numMonths;
-    if (numMonths > 0 && numMonths <= 12){
-    for (int i = 0; i < numMonths; i++){
-        cout << months[i] << ":" << endl;
-        cout << "Price of the item ($): ";
-        cin >> price;
-        cout << "Stocks: ";
-        cin >> stocks;
-        cout << "Items sold: ";
-        cin >> sold;
+    do {
+        cout << "Salesperson (1-4): ";
+        cin >> sp;
+        cout << "Product (1-5): ";
+        cin >> prod;
+        cout << "Amount: ";
+        cin >> amount;
 
-        total_rev = sold * price;
-        remaining = stocks - sold;
-        yrlyrev += total_rev;
+        if (sp >= 1 && sp <= 4 && prod >= 1 && prod <= 5) {
+            sales[prod - 1][sp - 1] += amount;
+        }
 
-        cout << "Monthly Sales: $" << total_rev << endl;
-        cout << "Stocks remained: " << remaining << endl;
-        cout << endl;
+        cout << "Add another slip? (y/n): ";
+        cin >> choice;
+    } while (tolower(choice) == 'y');
+
+    cout << "\n\t\tSalesperson" << endl;
+    cout << "Product\t1\t2\t3\t4\tTotal" << endl;
+    cout << "----------------------------------------------------" << endl;
+
+    double grandTotal = 0;
+    double colTotals[4] = {0};
+
+    for (int i = 0; i < 5; i++) {
+        double rowTotal = 0;
+        cout << i + 1 << "\t";
+
+        for (int j = 0; j < 4; j++) {
+            cout << fixed << setprecision(2) << sales[i][j] << "\t";
+            rowTotal += sales[i][j];
+            colTotals[j] += sales[i][j];
+        }
+        cout << rowTotal << endl;
+        grandTotal += rowTotal;
     }
-    double avg_rev = yrlyrev / numMonths;
-    cout << "Average monthly revenue: $" << avg_rev;
-    }
-    else {
-        cout << "Error!" << endl;
-    }
 
-    cout <<"\nWould you like to input another set of values? (y/n) ";
-    cin >> choice;
+    cout << "----------------------------------------------------" << endl;
+    cout << "Total\t";
+    for (int j = 0; j < 4; j++) {
+        cout << colTotals[j] << "\t";
+    }
+    cout << grandTotal << endl;
 
-}while(tolower(choice) == 'y');
+cout << "\nDo you want to repeat? (y/n)";
+cin >> option;
+}while(tolower(option) == 'y');
 
 return 0;
 }

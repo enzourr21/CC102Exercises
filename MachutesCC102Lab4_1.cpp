@@ -1,25 +1,42 @@
 #include <iostream>
+#include <iomanip>
+
 using namespace std;
 
-int main(){
-int students, average;
-int score1, score2, score3;
+int main() {
+int numStudents, numQuizzes;
 
-cout << "How many students? ";
-cin >> students;
+    cout << "Enter number of students: ";
+    cin >> numStudents;
+    cout << "Enter number of quizzes: ";
+    cin >> numQuizzes;
 
-    for (int i = 0; i < students; i++){
-        cout << "\nStudent#" << i + 1 << endl;
-        cout << "Quiz 1: ";
-        cin >> score1;
-        cout << "Quiz 2: ";
-        cin >> score2;
-        cout << "Quiz 3: ";
-        cin >> score3;
+    int scores[numStudents][numQuizzes];
 
-        average = (score1 + score2 + score3) / 3;
-        cout << "Average: " << average << endl;
+    for (int i = 0; i < numStudents; i++) {
+        cout << "Student " << i + 1 << " scores: ";
+        for (int j = 0; j < numQuizzes; j++) {
+            cin >> scores[i][j];
+        }
     }
 
-return 0;
+    cout << "\nStudent\t";
+    for (int j = 1; j <= numQuizzes; j++) cout << "Q" << j << "\t";
+    cout << "Average" << endl;
+    cout << "------------------------------------------" << endl;
+
+    for (int i = 0; i < numStudents; i++) {
+        double sum = 0;
+        cout << i + 1 << "\t";
+
+        for (int j = 0; j < numQuizzes; j++) {
+            cout << scores[i][j] << "\t";
+            sum += scores[i][j];
+        }
+
+        double average = sum / numQuizzes;
+        cout << fixed << setprecision(2) << average << endl;
+    }
+
+    return 0;
 }

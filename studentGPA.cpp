@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 using namespace std;
 
 struct Student {
@@ -52,27 +53,32 @@ Student students[numStudents];
     }
 
     //output
-    cout << "\nStudent ID\t" << "Name\t" << "\tCourse \t" << "\tGPA\t" <<"Remarks\n";
-    for (int i = 0; i < 8; i++){
-        cout << "--------";
+     cout << left << setw(15) << "Student ID"
+     << setw(20) << "Name"
+     << setw(15) << "Course"
+     << setw(10) << "GPA"
+     << "Remarks" << endl;
+    for (int i = 0; i < 10; i++){
+        cout << "-------";
     }
     cout << endl;
     for (int i = 0; i < numStudents; i++){
-        cout << students[i].studentID << "\t\t"
-        << students[i].name << "\t\t"
-        << students[i].course << "\t\t"
-        << students[i].gpa << "\t"
+        cout << left << setw(15) << students[i].studentID << setw(20)
+        << students[i].name << setw(15)
+        << students[i].course << fixed
+        << setprecision(2) << setw(10) << students[i].gpa
         << displayRemarks(students[i].gpa) << endl;
     }
-    for (int i = 0; i < 8; i++){
-        cout << "--------";
+    for (int i = 0; i < 10; i++){
+        cout << "-------";
     }
 
+//prompt user to repeat
 cout << "\nWould you like to repeat? ";
 cin >> choice;
 
 }while(tolower(choice) == 'y');
 
-cout << "Closing program....";
+cout << "\nClosing program....";
 return 0;
 }
